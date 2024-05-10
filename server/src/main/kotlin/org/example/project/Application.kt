@@ -1,22 +1,41 @@
 package org.example.project
 
-import Greeting
 import SERVER_PORT
+import io.ktor.http.*
+import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import io.ktor.util.pipeline.*
+import kotlinx.serialization.json.Json
+import org.example.project.data.api.dataModule
+import org.example.project.domain.domainModules
+import org.example.project.presentation.getTatooine
+import org.koin.core.context.startKoin
 
 fun main() {
-    embeddedServer(Netty, port = SERVER_PORT, host = "0.0.0.0", module = Application::module)
-        .start(wait = true)
+    startKoin {
+        modules(dataModule, domainModules)
+    }
+
+    embeddedServer(Netty, port = SERVER_PORT, host = "127.0.0.1", module = Application::module).start(wait = true)
 }
 
 fun Application.module() {
+    install(ContentNegotiation) {
+        json(Json {
+            prettyPrint = true
+            isLenient = true
+        })
+    }
     routing {
-        get("/") {
-            call.respondText("Ktor: ${Greeting().greet()}")
+        get("/greet") {
+            call.respondText("Hello, world!", ContentType.Text.Plain, HttpStatusCode.OK)
         }
+        getTatooine()
+
     }
 }
