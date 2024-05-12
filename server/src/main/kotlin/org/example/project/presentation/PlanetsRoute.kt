@@ -30,3 +30,22 @@ fun Routing.getTatooine() {
     }
 
 }
+
+fun Route.getAlderaan() {
+
+    val interactor: Interactor by inject(Interactor::class.java)
+
+    route("/planets") {
+
+        get("/alderaan") {
+            when (val result = interactor.getAlderaan()) {
+                is Either.Right -> call.respond(result.b)
+                is Either.Left -> call.respond(
+                    InternalServerError,
+                    result.a.localizedMessage
+                )
+
+            }
+        }
+    }
+}

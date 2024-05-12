@@ -7,4 +7,6 @@ interface Repository {
 
     suspend fun getTatooine(): Planets
 
+    suspend fun getAlderaan(): Planets
+
 }

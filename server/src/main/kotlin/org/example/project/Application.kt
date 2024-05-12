@@ -14,6 +14,7 @@ import org.example.project.data.dataModule
 import org.example.project.domain.domainModules
 import org.example.project.presentation.getTatooine
 import org.example.project.data.datasource.loggingModules
+import org.example.project.presentation.getAlderaan
 import org.koin.core.context.startKoin
 
 fun main() {
@@ -36,6 +37,6 @@ fun Application.module() {
             call.respondText("Hello, world!", ContentType.Text.Plain, HttpStatusCode.OK)
         }
         getTatooine()
-
+        getAlderaan()
     }
 }

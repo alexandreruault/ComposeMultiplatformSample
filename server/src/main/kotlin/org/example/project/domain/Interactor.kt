@@ -13,4 +13,11 @@ class Interactor(private val repository: Repository) {
         }
 
 
+    suspend fun getAlderaan(): Either<Throwable, Planets> =
+        try {
+            Either.Right(repository.getAlderaan())
+        } catch (error: Throwable) {
+            Either.Left(error)
+        }
+
 }
