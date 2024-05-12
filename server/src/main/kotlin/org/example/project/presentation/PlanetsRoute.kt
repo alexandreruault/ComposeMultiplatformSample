@@ -1,6 +1,7 @@
 package org.example.project.presentation
 
 import io.ktor.http.HttpStatusCode
+import io.ktor.http.HttpStatusCode.Companion.InternalServerError
 import io.ktor.server.application.call
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
@@ -19,7 +20,7 @@ fun Routing.getTatooine() {
             when (val result = interactor.getTatooine()) {
                 is Either.Right -> call.respond(result.b)
                 is Either.Left -> call.respond(
-                    HttpStatusCode.InternalServerError,
+                    InternalServerError,
                     result.a.localizedMessage
                 )
 

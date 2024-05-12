@@ -9,16 +9,16 @@ import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.ktor.util.pipeline.*
 import kotlinx.serialization.json.Json
-import org.example.project.data.api.dataModule
+import org.example.project.data.dataModule
 import org.example.project.domain.domainModules
 import org.example.project.presentation.getTatooine
+import org.example.project.data.datasource.loggingModules
 import org.koin.core.context.startKoin
 
 fun main() {
     startKoin {
-        modules(dataModule, domainModules)
+        modules(dataModule, domainModules, loggingModules)
     }
 
     embeddedServer(Netty, port = SERVER_PORT, host = "127.0.0.1", module = Application::module).start(wait = true)
