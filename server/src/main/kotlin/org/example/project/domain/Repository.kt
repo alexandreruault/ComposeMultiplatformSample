@@ -9,4 +9,6 @@ interface Repository {
 
     suspend fun getAlderaan(): Planets
 
+    suspend fun getYavin(): Planets
+
 }

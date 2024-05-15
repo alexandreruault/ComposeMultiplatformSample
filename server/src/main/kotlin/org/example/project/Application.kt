@@ -15,6 +15,7 @@ import org.example.project.domain.domainModules
 import org.example.project.presentation.getTatooine
 import org.example.project.data.datasource.loggingModules
 import org.example.project.presentation.getAlderaan
+import org.example.project.presentation.getYavin
 import org.koin.core.context.startKoin
 
 fun main() {
@@ -38,5 +39,6 @@ fun Application.module() {
         }
         getTatooine()
         getAlderaan()
+        getYavin()
     }
 }

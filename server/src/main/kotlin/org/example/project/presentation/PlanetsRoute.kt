@@ -17,14 +17,15 @@ fun Routing.getTatooine() {
     route("/planets") {
 
         get("/tatooine") {
-            when (val result = interactor.getTatooine()) {
-                is Either.Right -> call.respond(result.b)
-                is Either.Left -> call.respond(
-                    InternalServerError,
-                    result.a.localizedMessage
-                )
 
-            }
+            interactor.getTatooine().fold(
+                onSuccess = {
+                    call.respond(it)
+                },
+                onFailure = {
+                    call.respond(InternalServerError, it.localizedMessage)
+                }
+            )
         }
 
     }
@@ -38,14 +39,36 @@ fun Route.getAlderaan() {
     route("/planets") {
 
         get("/alderaan") {
-            when (val result = interactor.getAlderaan()) {
-                is Either.Right -> call.respond(result.b)
-                is Either.Left -> call.respond(
-                    InternalServerError,
-                    result.a.localizedMessage
-                )
-
-            }
+            interactor.getAlderaan().fold(
+                onSuccess = {
+                    call.respond(it)
+                },
+                onFailure = {
+                    call.respond(InternalServerError, it.localizedMessage)
+                }
+            )
         }
     }
+}
+
+
+fun Route.getYavin() {
+
+    val interactor: Interactor by inject(Interactor::class.java)
+
+    route("/planets") {
+
+        get("/yavin") {
+            interactor.getYavin().fold(
+                onSuccess = {
+                    call.respond(it)
+                },
+                onFailure = {
+                    call.respond(InternalServerError, it.localizedMessage)
+                }
+            )
+
+        }
+    }
+
 }

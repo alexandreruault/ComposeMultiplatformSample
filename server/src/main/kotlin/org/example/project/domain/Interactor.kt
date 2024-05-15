@@ -5,19 +5,19 @@ import org.example.project.util.Either
 
 class Interactor(private val repository: Repository) {
 
-    suspend fun getTatooine(): Either<Throwable, Planets> =
-        try {
-            Either.Right(repository.getTatooine())
-        } catch (error: Throwable) {
-            Either.Left(error)
-        }
+    suspend fun getTatooine(): Result<Planets> = runCatching {
+        repository.getTatooine()
+    }
 
 
-    suspend fun getAlderaan(): Either<Throwable, Planets> =
-        try {
-            Either.Right(repository.getAlderaan())
-        } catch (error: Throwable) {
-            Either.Left(error)
+    suspend fun getAlderaan(): Result<Planets> = runCatching {
+        repository.getAlderaan()
+    }
+
+
+    suspend fun getYavin(): Result<Planets> =
+        runCatching {
+            repository.getYavin()
         }
 
 }

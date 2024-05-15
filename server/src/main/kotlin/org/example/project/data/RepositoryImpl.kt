@@ -14,4 +14,8 @@ class RepositoryImpl(val planetsDatasource: PlanetsDatasource) : Repository {
     override suspend fun getAlderaan(): Planets =
         planetsDatasource.getPlanets("2")
 
+
+    override suspend fun getYavin(): Planets =
+        planetsDatasource.getPlanets("3")
+
 }
